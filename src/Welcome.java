@@ -9,19 +9,20 @@ import javax.swing.ImageIcon;
 
 public class Welcome {
 
-	int width,height;
+	int width,height,highScore;
 	long wait;
 	private Image cherry;
 	private Image title;
 	private Image ghosts;
 	Board board;
 
-public Welcome(int width, int height, long wait, Board board) {
+public Welcome(int width, int height, long wait, Board board, int highScore) {
 		
 		this.width=width;
 		this.height=height;
 		this.wait=wait;
 		this.board=board;
+		this.highScore=highScore;
 		
 		
 	}
@@ -36,7 +37,7 @@ public void welcomeScreen(Graphics g) {
 	g.drawImage(title, width/10, height/3, board);
 	g.setFont(new Font("TimesRoman", Font.BOLD, 15));
 	g.setColor(Color.WHITE);
-	g.drawString("Highscore:", (width/3)+10, height/12);
+	g.drawString("Highscore: "+highScore, (width/3)+10, height/12);
 	if(System.nanoTime()-wait>4000000000l){
 		g.drawString("Press SPACE to start", (width/4)+40, (height/2)+60);
 	}

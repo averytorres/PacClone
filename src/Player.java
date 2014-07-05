@@ -1,12 +1,20 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 
 
 public class Player {
 	
 	int playerX;
 	int playerY;
+	int closeTimer,openTimer;
+	private Image pac;
+	Board board;
+	Boolean open;
+	ImageIcon iipR,iipD,iipL,iipU,iipC;
 	
 	protected int getPlayerX() {
 		return playerX;
@@ -26,41 +34,40 @@ public class Player {
 
 	
 	
-	public Player(){
+	public Player(Board board){
 		playerX=245;
 		playerY=400;
+		this.board=board;
+		load();
+		open=true;
+		closeTimer=0;
+		openTimer=0;
 	}
 
 	public void draw(Graphics g){
-		g.setColor(Color.RED);
-		g.fillRect(playerX-1, playerY+8, 8, 5);
-		
-	    g.setColor(Color.WHITE); 
+
 	    //body
-	    g.fillRect(playerX-1, playerY, 8, 9);
-	    g.fillRect(playerX+2, playerY-4, 2, 16);
-	    g.fillRect(playerX-7, playerY+4, 20, 5);
-	    g.fillRect(playerX-7, playerY+1, 3, 11);
-	    g.fillRect(playerX+10, playerY+1, 3, 11);
-	    
-	    g.setColor(Color.RED); 
-	    g.drawLine(playerX+2, playerY-4,playerX+2, playerY-4);
+	    g.drawImage(pac, getPlayerX(), getPlayerY(), board);
 	}
 
 	public void update(boolean up, boolean down, boolean left, boolean right, Dimension d) {
 		//check for movment 
 		if(up){
-			this.setPlayerY(this.getPlayerY()-4);
+			this.setPlayerY(this.getPlayerY()-3);
+			checkAni(iipU);
 
 		}
 		else if(down){
-			this.setPlayerY(this.getPlayerY()+4);
+			this.setPlayerY(this.getPlayerY()+3);
+			checkAni(iipD);
 		}
 		if(left){
-			this.setPlayerX(this.getPlayerX()-7);
+			this.setPlayerX(this.getPlayerX()-3);
+			checkAni(iipL);
 		}
 		else if(right){
-			this.setPlayerX(this.getPlayerX()+7);
+			this.setPlayerX(this.getPlayerX()+3);
+			checkAni(iipR);
 		}
 
 		//create bounds the player cannot pass through
@@ -81,6 +88,31 @@ public class Player {
 		//draw location of player
 		playerX=this.getPlayerX();
 		playerY=this.getPlayerY();
+		
+	}
+	private void checkAni(ImageIcon in){
+		if(closeTimer>5){
+			pac=iipC.getImage();
+			if(openTimer>5){
+			closeTimer=0;
+			openTimer=0;
+			}
+			openTimer++;
+		}
+		else{
+			pac = in.getImage();
+			closeTimer++;
+		}
+	}
+	private void load() {
+		
+		iipR = new ImageIcon(this.getClass().getResource("/img/pacR.png"));
+		iipD = new ImageIcon(this.getClass().getResource("/img/pacD.png"));
+		iipL = new ImageIcon(this.getClass().getResource("/img/pacL.png"));
+		iipU = new ImageIcon(this.getClass().getResource("/img/pacU.png"));
+		iipC = new ImageIcon(this.getClass().getResource("/img/close.png"));
+		
+		
 		
 	}
 }
