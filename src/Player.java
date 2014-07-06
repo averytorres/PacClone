@@ -35,8 +35,8 @@ public class Player {
 	
 	
 	public Player(Board board){
-		playerX=245;
-		playerY=400;
+		playerX=16*15;
+		playerY=12*15;
 		this.board=board;
 		load();
 		open=true;

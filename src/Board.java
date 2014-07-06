@@ -39,6 +39,7 @@ public class Board extends JPanel implements KeyListener{
 	Clip clip;
 	Welcome w;  
 	Player player;
+	Level1 L1;
 	
 	
 	public Board(){
@@ -67,7 +68,7 @@ public class Board extends JPanel implements KeyListener{
 		wait = System.nanoTime();
 		w = new Welcome(this.getWidth(),this.getHeight(),wait,this,highScore);
 		player = new Player(this);
-		
+		L1=new Level1();
 		
 	}
 
@@ -130,6 +131,7 @@ public class Board extends JPanel implements KeyListener{
 					setMusic("/music/L1.wav");
 					setL1=true;
 				}
+				L1.drawLevel(g);
 			}
 		
 		}
@@ -241,7 +243,7 @@ public class Board extends JPanel implements KeyListener{
 			//right=false;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_SPACE){
-
+			L1.generateLevel();
 		}
 		
 		//player has died and gameover screen should be displayed, player is able to exit and restart with button press

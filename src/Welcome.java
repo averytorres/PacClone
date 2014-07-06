@@ -63,6 +63,7 @@ private void drawBorder(final Graphics g){
 	if(r.nextInt(20)<2){
 		num=15;
 	}
+	
 	for(int i=num;i<width;i=i+30){
 		g.drawImage(cherry, i, 0, board);
 	}	
